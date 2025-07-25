@@ -1,9 +1,23 @@
 package main
 
 import (
+	"log"
+
 	"example/web-service-gin/internal/api"
+	"example/web-service-gin/internal/model"
+
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 func main() {
-	api.FnRouter()
+	dsnURI := "mydb.sqlite"
+	db, err := gorm.Open(sqlite.Open(dsnURI), &gorm.Config{})
+	db.AutoMigrate(&model.Book{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	router := api.FnRouter(db)
+	router.Run("localhost:8080")
 }

@@ -4,32 +4,44 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 
-	"example/web-service-gin/internal/mock"
 	"example/web-service-gin/internal/model"
 )
 
-func GetBooks(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, mock.Books)
-}
-
-func GetBookByID(c *gin.Context) {
-	id := c.Param("id")
-	for _, a := range mock.Books {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
+func GetBooks(c *gin.Context, db *gorm.DB) {
+	var books []model.Book
+	if err := db.Find(&books).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "book not found"})
+
+	c.JSON(http.StatusOK, books)
 }
 
-func PostBooks(c *gin.Context) {
+func GetBookByID(c *gin.Context, db *gorm.DB) {
+	id := c.Param("id")
+	var book []model.Book
+	if err := db.Find(&book, id).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, book)
+}
+
+func PostBooks(c *gin.Context, db *gorm.DB) {
 	var newBook model.Book
 
 	if err := c.BindJSON(&newBook); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
-	mock.Books = append(mock.Books, newBook)
-	c.IndentedJSON(http.StatusCreated, newBook)
+
+	if err := db.Create(&newBook).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, newBook)
 }
