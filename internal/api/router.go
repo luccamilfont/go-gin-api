@@ -7,6 +7,9 @@ import (
 
 func FnRouter(db *gorm.DB) *gin.Engine {
 	router := gin.Default()
+	router.GET("/products", func(c *gin.Context) {
+		GetProducts(c, db)
+	})
 	router.GET("/books", func(c *gin.Context) {
 		GetBooks(c, db)
 	})
@@ -14,7 +17,10 @@ func FnRouter(db *gorm.DB) *gin.Engine {
 		GetBookByID(c, db)
 	})
 	router.POST("/newBook", func(c *gin.Context) {
-		PostBooks(c, db)
+		PostBook(c, db)
+	})
+	router.POST("/newProduct", func(c *gin.Context) {
+		PostProduct(c, db)
 	})
 
 	router.Run("localhost:8080")
