@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"example/web-service-gin/internal/api"
-	"example/web-service-gin/internal/model"
+	"go-gin-api/internal/api"
+	"go-gin-api/internal/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

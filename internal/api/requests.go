@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"example/web-service-gin/internal/model"
+	"go-gin-api/internal/model"
 )
 
 func GetProducts(c *gin.Context, db *gorm.DB) {
@@ -32,7 +32,7 @@ func GetBooks(c *gin.Context, db *gorm.DB) {
 func GetBookByID(c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
 	var book []model.Book
-	if err := db.Find(&book, id).Error; err != nil {
+	if err := db.Preload("Products").Find(&book, id).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

@@ -1,30 +1,47 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+type Model struct {
+	ID        uint           `json:"id" gorm:"primarykey"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
+}
 
 type Client struct {
-	ID   uint   `json:"id"`
+	Model
 	Name string `json:"name"`
 }
 
 type Order struct {
-	ID        uint       `json:"id"`
-	ClientID  int        `json:"client_id"`
-	CreatedAt time.Time  `json:"created_at"`
-	PaidAt    *time.Time `json:"paid_at"`
-	Products  []Product  `gorm:"many2many:order_products;"`
+	Model
+	ClientID int        `json:"client_id"`
+	PaidAt   *time.Time `json:"paid_at"`
+	Products []OrderProduct
 }
 
 type Product struct {
-	ID       uint    `json:"id"`
+	Model
 	Barcode  string  `json:"barcode"`
 	Price    float32 `json:"price" gorm:"type:decimal(10,2)"`
 	ItemID   uint    `json:"item_id"`
 	ItemType string  `json:"item_type"`
+	Orders   []OrderProduct
 }
 
+type OrderProduct struct {
+	Model
+	OrderID   uint `gorm:"foreignKey:OrderID;references:ID"`
+	ProductID uint `gorm:"foreignKey:ProductID;references:ID"`
+	Quantity  uint `json:"quantity"`
+}
 type Book struct {
-	ID        uint      `json:"id"`
+	Model
 	Title     string    `json:"title"`
 	Author    string    `json:"author"`
 	Publisher string    `json:"publisher"`
@@ -34,7 +51,7 @@ type Book struct {
 }
 
 type Magazine struct {
-	ID       uint      `json:"id"`
+	Model
 	Title    string    `json:"title"`
 	Edition  uint      `json:"edition"`
 	Company  string    `json:"company"`
