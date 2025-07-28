@@ -1,4 +1,4 @@
-## go-gin-api
+## library-go-gin-api
 _Last READ.ME update: 2025-07-04_
 
 ## Summary
@@ -20,8 +20,8 @@ go run .
 ## Misc
 
 Additional files present:
-- Database logical model (go-gin-api.drawio)
-- API Test Postman collection (go-gin-api.postman_collection.json)
+- Database logical model (library-go-gin-api.drawio)
+- API Test Postman collection (library-go-gin-api.postman_collection.json)
 
 ##
 Tools used: golang, gin, gorm

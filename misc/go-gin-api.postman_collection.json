@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "d1c56c11-3160-4d7f-9510-38f78bce1072",
-		"name": "go-gin-api",
+		"name": "library-go-gin-api",
 		"description": "## **How to use this collection**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations such as POST, GET, PUT, or DELETE HTTP methods.\n\nOpen each request and click \"Send\" to see the result.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\nHere's an example for the \\[Post new book\\] POST request:\n\n``` json\n{\n    \"id\": \"2\",\n    \"title\": \"Postman book\",\n    \"author\": \"Postman author\",\n    \"price\": 92.99\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. This collection has a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` pointin to `http://localhost:8080`. You are free to replace it both here and within the API endpoint to customize this repository.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43585146",

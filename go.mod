@@ -1,4 +1,4 @@
-module go-gin-api
+module library-go-gin-api
 
 go 1.24.4
 

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"go-gin-api/internal/model"
+	"library-go-gin-api/internal/model"
 )
 
 func GetProducts(c *gin.Context, db *gorm.DB) {

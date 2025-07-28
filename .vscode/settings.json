@@ -4,7 +4,7 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "database": "${workspaceFolder:go-gin-api}/mydb.sqlite",
+            "database": "${workspaceFolder:library-go-gin-api}/mydb.sqlite",
             "name": "mydb.sqlite"
         }
     ]
